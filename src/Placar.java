@@ -10,23 +10,25 @@ public class Placar {
 	}
 	
 	
-	public void add(int posicao, int[] dados) throws 
-		IllegalArgumentException{
-			if ( posicoes[posicao] > 0 || posicao > 10 || posicao < 0 ) 
+	public void add(int posicao, int[] dados) throws IllegalArgumentException{
+			if ( posicoes[posicao-1] > 0 || posicao > 10 || posicao < 1 ){
 				throw new IllegalArgumentException("Posicao ingressada nao existe ou já está ocupada.");
+			}
 			int sum;
 			if(posicao == 10 || posicao == 9){
-				sum = 0;
-				int flag = dados[0], contador = 0;
+				posicao -= 1;
+				Arrays.sort(dados);
+				int flag = dados[0], contador = 1;
 				for(int i = 1; i < dados.length; i++){
 					if(dados[i] != flag){
-						contador = 0;
+						contador = 1;
 						flag = dados[i];
 					}else{
 						contador++;
 					}
 				}
-				if(posicao == 10){
+				if(posicao+1 == 10){
+					System.out.println("Contador: " + contador);
 					if(contador >= 5) posicoes[posicao] += 40;
 					else System.out.println("Os dados nao forman uma QUINA.");
 					
@@ -34,7 +36,8 @@ public class Placar {
 					if(contador >= 4) posicoes[posicao] += 30;
 					else System.out.println("Os dados nao forman uma QUADRA.");
 				}	
-			}else if(posicao == 8){			
+			}else if(posicao == 8){
+				posicao -= 1;
 				Arrays.sort(dados);
 				boolean isOne = false, isTwo = false, isThree = false, isFour = false, isFive = false, isSix = false;
 				for(int i = 0; i < dados.length; i++){
@@ -51,8 +54,9 @@ public class Placar {
 					System.out.println("Os dados nao forman uma SEQUENCIA");
 				}
 			}else if(posicao == 7){
+				posicao -= 1;
 				Arrays.sort(dados);
-				int contador = 0;
+				int contador = 1;
 				int lastIndex = -1;
 				int flag = dados[0];
 				for(int i = 0; i < dados.length; i++){
@@ -60,7 +64,11 @@ public class Placar {
 					else{
 						lastIndex = i;
 						flag = dados[i];
-						break;
+						if(i <= 2){
+							break;
+						}else{
+							contador = 1;
+						}
 					}
 				}
 				if(contador >= 5){
@@ -108,7 +116,7 @@ public class Placar {
 						sum += dados[i];
 					}
 				}
-				posicoes[posicao] += sum;
+				posicoes[posicao-1] += sum;
 			}
 		}
 	
@@ -121,14 +129,14 @@ public class Placar {
 	}
 	
 	@Override
-	public String toString(){
+	public java.lang.String toString(){
 		String[] printable = new String[10];
 		int[] sizes = new int[10];
 		for(int i = 0; i < posicoes.length; i++){
 			if(posicoes[i] == 0)
-				printable[i] = "("+Integer.toString(i)+")";
+				printable[i] = "("+Integer.toString(i+1)+")";
 			else
-				printable[i] = Integer.toString(i);
+				printable[i] = Integer.toString(posicoes[i]);
 			sizes[i] = printable[i].length();
 		}
 		int i;
@@ -149,13 +157,13 @@ public class Placar {
 			print += " ";
 		print += "|";
 		i = sizes[3];
-		while(i <= 7){
+		while(i < 7){
 			print += " ";
 			i++;
 		}
 		print += (printable[3] + "\n");
 		// LINE 2 //////////////////////////////////////////
-		for(i = 0; i < 26; i++)
+		for(i = 0; i < 27; i++)
 			print += "-";
 		print += "\n";
 		// LINE 3 //////////////////////////////////////////
@@ -175,13 +183,13 @@ public class Placar {
 			print += " ";
 		print += "|";
 		i = sizes[4];
-		while(i <= 7){
+		while(i < 7){
 			print += " ";
 			i++;
 		}
 		print += (printable[4] + "\n");
 		// LINE 4 //////////////////////////////////////////
-		for(i = 0; i < 26; i++)
+		for(i = 0; i < 27; i++)
 			print += "-";
 		print += "\n";
 		// LINE 5 //////////////////////////////////////////
@@ -201,19 +209,19 @@ public class Placar {
 			print += " ";
 		print += "|";
 		i = sizes[5];
-		while(i <= 7){
+		while(i < 7){
 			print += " ";
 			i++;
 		}
 		print += (printable[5] + "\n");
 		// LINE 6 //////////////////////////////////////////
-		for(i = 0; i < 26; i++)
+		for(i = 0; i < 27; i++)
 			print += "-";
 		print += "\n";
 		// LINE 7 /////////////////////////////////////////
 		for(i = 0; i < 7; i++)
 			print +=  " ";
-		print += "|";
+		print += " |";
 		i = 10 - sizes[9];
 		for(int j = 0; j < i/2; j++)
 			print += " ";
@@ -224,7 +232,18 @@ public class Placar {
 		// LINE 8 //////////////////////////////////////////
 		for(i = 0; i < 7; i++)
 			print +=  " ";
-		print += "+----------+\n";
+		print += " +----------+\n";
 		return print;
 	}
-}
+	
+	/*
+	public static void main(java.lang.String[] args){
+		Placar p = new Placar();
+		int[] arreglo = {2,2,2,2,5,2,7,1,2,1};
+		p.add(2, arreglo);
+		int arreglo2[] = {1, 9, 2, 2, 3, 4, 5, 10, 10, 10};
+		p.add(8, arreglo2);
+		System.out.print(p.toString());
+	}
+	*/
+}	
