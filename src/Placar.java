@@ -122,14 +122,109 @@ public class Placar {
 	
 	@Override
 	public String toString(){
-		
-		(1)    |   (7)    |   (4) 
-		--------------------------\n
-		(2)    |   20     |   (5) \n
-		--------------------------\n
-		(3)    |   30     |   (6) \n
-		--------------------------\n
-		       |   (10)   |
-		       +----------+ 
+		String[] printable = new String[10];
+		int[] sizes = new int[10];
+		for(int i = 0; i < posicoes.length; i++){
+			if(posicoes[i] == 0)
+				printable[i] = "("+Integer.toString(i)+")";
+			else
+				printable[i] = Integer.toString(i);
+			sizes[i] = printable[i].length();
+		}
+		int i;
+		// LINE 1 //////////////////////////////////////////
+		String print = printable[0];
+		i = sizes[0];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += "|";
+		// This is what it rests to fill with spaces
+		i = 10 - sizes[6];
+		for(int j = 0; j < i/2; j++)
+			print += " ";
+		print += printable[6];
+		for(int j = i/2; j < i; j++)
+			print += " ";
+		print += "|";
+		i = sizes[3];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += (printable[3] + "\n");
+		// LINE 2 //////////////////////////////////////////
+		for(i = 0; i < 26; i++)
+			print += "-";
+		print += "\n";
+		// LINE 3 //////////////////////////////////////////
+		print += printable[1];
+		i = sizes[1];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += "|";
+		// This is what it rests to fill with spaces
+		i = 10 - sizes[7];
+		for(int j = 0; j < i/2; j++)
+			print += " ";
+		print += printable[7];
+		for(int j = i/2; j < i; j++)
+			print += " ";
+		print += "|";
+		i = sizes[4];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += (printable[4] + "\n");
+		// LINE 4 //////////////////////////////////////////
+		for(i = 0; i < 26; i++)
+			print += "-";
+		print += "\n";
+		// LINE 5 //////////////////////////////////////////
+		print += printable[2];
+		i = sizes[2];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += "|";
+		// This is what it rests to fill with spaces
+		i = 10 - sizes[8];
+		for(int j = 0; j < i/2; j++)
+			print += " ";
+		print += printable[8];
+		for(int j = i/2; j < i; j++)
+			print += " ";
+		print += "|";
+		i = sizes[5];
+		while(i <= 7){
+			print += " ";
+			i++;
+		}
+		print += (printable[5] + "\n");
+		// LINE 6 //////////////////////////////////////////
+		for(i = 0; i < 26; i++)
+			print += "-";
+		print += "\n";
+		// LINE 7 /////////////////////////////////////////
+		for(i = 0; i < 7; i++)
+			print +=  " ";
+		print += "|";
+		i = 10 - sizes[9];
+		for(int j = 0; j < i/2; j++)
+			print += " ";
+		print += printable[9];
+		for(int j = i/2; j < i; j++)
+			print += " ";
+		print += "|\n";
+		// LINE 8 //////////////////////////////////////////
+		for(i = 0; i < 7; i++)
+			print +=  " ";
+		print += "+----------+\n";
+		return print;
 	}
 }
