@@ -35,7 +35,6 @@ public class Dado {
 	}
 	*/
 	
-	@Override
 	public java.lang.String toString(){
 		switch(numeroLados){
 		case 1: return "+-----+\n|     |\n|  *  |\n|     |\n+-----+\n"; 
